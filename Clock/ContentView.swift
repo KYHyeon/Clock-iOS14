@@ -10,7 +10,18 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        TabView {
+            WorldTimeView(model: WorldTime())
+                .tabItem {
+                    Image(systemName: "list.dash")
+                    Text("Menu")
+            }
+            WorldTimeView(model: WorldTime())
+                .tabItem {
+                    Image(systemName: "list.dash")
+                    Text("Menu")
+            }
+        }
     }
 }
 

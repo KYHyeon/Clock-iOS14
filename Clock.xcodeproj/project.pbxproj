@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F41DE6CC24FBB9F000FCCD02 /* WorldTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41DE6CB24FBB9F000FCCD02 /* WorldTimeView.swift */; };
+		F41DE6CE24FBBA7B00FCCD02 /* WorldTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41DE6CD24FBBA7B00FCCD02 /* WorldTime.swift */; };
+		F4858F1A24FBC626003D4ED7 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4858F1924FBC626003D4ED7 /* City.swift */; };
 		F4899A3324FBAC19003C048C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4899A3224FBAC19003C048C /* AppDelegate.swift */; };
 		F4899A3524FBAC19003C048C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4899A3424FBAC19003C048C /* SceneDelegate.swift */; };
 		F4899A3824FBAC19003C048C /* Clock.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F4899A3624FBAC19003C048C /* Clock.xcdatamodeld */; };
@@ -36,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F41DE6CB24FBB9F000FCCD02 /* WorldTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTimeView.swift; sourceTree = "<group>"; };
+		F41DE6CD24FBBA7B00FCCD02 /* WorldTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTime.swift; sourceTree = "<group>"; };
+		F4858F1924FBC626003D4ED7 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		F4899A2F24FBAC19003C048C /* Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4899A3224FBAC19003C048C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4899A3424FBAC19003C048C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +109,7 @@
 		F4899A3124FBAC19003C048C /* Clock */ = {
 			isa = PBXGroup;
 			children = (
+				F4899A6624FBB002003C048C /* WorldTime */,
 				F4899A3224FBAC19003C048C /* AppDelegate.swift */,
 				F4899A3424FBAC19003C048C /* SceneDelegate.swift */,
 				F4899A3924FBAC19003C048C /* ContentView.swift */,
@@ -139,6 +146,16 @@
 				F4899A5924FBAC1C003C048C /* Info.plist */,
 			);
 			path = ClockUITests;
+			sourceTree = "<group>";
+		};
+		F4899A6624FBB002003C048C /* WorldTime */ = {
+			isa = PBXGroup;
+			children = (
+				F41DE6CB24FBB9F000FCCD02 /* WorldTimeView.swift */,
+				F41DE6CD24FBBA7B00FCCD02 /* WorldTime.swift */,
+				F4858F1924FBC626003D4ED7 /* City.swift */,
+			);
+			path = WorldTime;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,7 +292,10 @@
 				F4899A3324FBAC19003C048C /* AppDelegate.swift in Sources */,
 				F4899A3824FBAC19003C048C /* Clock.xcdatamodeld in Sources */,
 				F4899A3A24FBAC19003C048C /* ContentView.swift in Sources */,
+				F41DE6CE24FBBA7B00FCCD02 /* WorldTime.swift in Sources */,
+				F41DE6CC24FBB9F000FCCD02 /* WorldTimeView.swift in Sources */,
 				F4899A3524FBAC19003C048C /* SceneDelegate.swift in Sources */,
+				F4858F1A24FBC626003D4ED7 /* City.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
