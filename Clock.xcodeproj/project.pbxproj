@@ -51,6 +51,7 @@
 		F4899A5324FBAC1C003C048C /* ClockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4899A5724FBAC1C003C048C /* ClockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockUITests.swift; sourceTree = "<group>"; };
 		F4899A5924FBAC1C003C048C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4899A6524FBAC33003C048C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +82,7 @@
 		F4899A2624FBAC19003C048C = {
 			isa = PBXGroup;
 			children = (
+				F4899A6524FBAC33003C048C /* README.md */,
 				F4899A3124FBAC19003C048C /* Clock */,
 				F4899A4B24FBAC1C003C048C /* ClockTests */,
 				F4899A5624FBAC1C003C048C /* ClockUITests */,
