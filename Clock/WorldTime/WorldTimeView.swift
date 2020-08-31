@@ -10,47 +10,67 @@ import SwiftUI
 
 struct WorldTimeView: View {
     @ObservedObject var model: WorldTime
-    @State var isEditing = false
+    @State private var editMode = EditMode.inactive
+    @State var currentDate = Date()
+
+    @State var isAdding = false
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(model.cityLists) { city in
-                    TimeView(city: city)
-                }.onDelete { indexSet in
-                    print(indexSet.forEach { print($0) })
+                ForEach(model.cities) { city in
+                    TimeView(city: city, currentDate: self.$currentDate)
+                        .onReceive(self.timer) { self.currentDate = $0 }
                 }
+                .onDelete(perform: model.delete(_:))
+                .onMove(perform: model.move(source:destination:))
             }
-            .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
-            .animation(Animation.spring())
-
             .navigationBarTitle(Text("세계 시계").font(.largeTitle))
-            .navigationBarItems(leading: Button(action: {
-                self.isEditing.toggle()
-
-            }, label: {
-                Text("편집")
-            }), trailing: Button(action: {
-                
-            }, label: {
-                Image(systemName: "plus")
+            .navigationBarItems(leading: EditButton(), trailing: Button(action: { }, label: {
+                Image(systemName: "plus").onTapGesture {
+                    self.isAdding = true
+                }.sheet(isPresented: $isAdding) {
+                    AddCityView()
+                }
             }))
+            .environment(\.editMode, $editMode)
         }
     }
 }
 
 struct TimeView: View {
     var city: City
+    @Binding var currentDate: Date
     
     var body: some View {
         HStack {
             VStack {
-                Text(city.diff).font(.subheadline)
+                Text(city.diffString).font(.subheadline)
                 Text(city.name).font(.title)
             }
             Spacer()
-            Text(city.time).font(.title)
+            Text("\(city.date(currentDate: currentDate))").font(.title)
         }.padding()
+    }
+}
+
+struct AddCityView: View {
+    @State var text: String = ""
+    @State var selectedItem: Int = 0
+    var cities = ["Red", "Green", "Blue", "Tartan"]
+    
+    var body: some View {
+        VStack {
+            TextField("City Name", text: $text)
+            Text(text)
+            Picker(selection:
+                $selectedItem, label: Text("dd"), content: {
+                    ForEach(0 ..< cities.count) {
+                        Text(self.cities[$0])
+                    }
+            })
+        }
     }
 }
 

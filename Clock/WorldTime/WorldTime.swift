@@ -10,21 +10,21 @@ import Foundation
 import Combine
 
 class WorldTime: ObservableObject {
-    var cityLists: [City] {
-        [
-            City(diff: "오늘, +0시간", name: "서울", date: date),
-            City(diff: "오늘, -14시간", name: "뉴올리언즈", date: date),
-            City(diff: "오늘, -6시간", name: "나이로비", date: date)
-        ]
-    }
     
-    @Published var date: Date = Date()
+    @Published var cities = [
+        City(diffHour: 0, name: "서울"),
+        City(diffHour: -14, name: "뉴올리언즈"),
+        City(diffHour: -6, name: "나이로비")
+    ]
+    
     
     private var timerCancellable: AnyCancellable?
     
-    init() {
-        timerCancellable = Timer.publish(every: 1, on: .main, in: .default)
-            .autoconnect()
-            .assign(to: \WorldTime.date, on: self)
+    func delete(_ indexSet: IndexSet) {
+        cities.remove(atOffsets: indexSet)
+    }
+    
+    func move(source: IndexSet, destination: Int) {
+        cities.move(fromOffsets: source, toOffset: destination)
     }
 }

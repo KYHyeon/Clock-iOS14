@@ -11,14 +11,20 @@ import Foundation
 struct City: Identifiable {
     var id: String { name }
     
-    var diff: String
+    var diffHour: Int
+    var diffString: String {
+        "오늘, \(diffHour)시간"
+    }
+    
     var name: String
-    var date: Date
     
     var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm:ss"
         return dateFormatter
     }
-    var time: String { dateFormatter.string(from: date) }
+    
+    func date(currentDate: Date) -> String {
+        dateFormatter.string(from: Date(timeInterval: TimeInterval(60 * 60 * diffHour), since: currentDate))
+    }
 }
