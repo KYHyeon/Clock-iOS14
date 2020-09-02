@@ -19,7 +19,7 @@ class WorldTime: ObservableObject {
     
     private var timerCancellable: AnyCancellable?
     
-    //MARK - Intent
+    // MARK: - Intent
     func delete(_ indexSet: IndexSet) {
         cities.remove(atOffsets: indexSet)
     }

@@ -20,8 +20,8 @@ struct WorldTimeView: View {
         NavigationView {
             List {
                 ForEach(model.cities) { city in
-                    TimeView(city: city, currentDate: self.$currentDate)
-                        .onReceive(self.timer) { self.currentDate = $0 }
+                    TimeView(city: city, currentDate: $currentDate)
+                        .onReceive(timer) { currentDate = $0 }
                 }
                 .onDelete(perform: model.delete(_:))
                 .onMove(perform: model.move(source:destination:))
@@ -29,7 +29,7 @@ struct WorldTimeView: View {
             .navigationBarTitle("세계 시계")
             .navigationBarItems(leading: EditButton(), trailing: Button(action: { }, label: {
                 Image(systemName: "plus").onTapGesture {
-                    self.isAdding = true
+                    isAdding = true
                 }.sheet(isPresented: $isAdding) {
                     AddCityView()
                 }
@@ -67,7 +67,7 @@ struct AddCityView: View {
             Picker(selection:
                 $selectedItem, label: Text("dd"), content: {
                     ForEach(0 ..< cities.count) {
-                        Text(self.cities[$0])
+                        Text(cities[$0])
                     }
             })
         }
