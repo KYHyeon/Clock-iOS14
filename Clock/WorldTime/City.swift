@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct City: Identifiable {
+struct City: Identifiable, Hashable {
     var id: String { name }
     
     var diffHour: Int

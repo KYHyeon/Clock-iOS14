@@ -12,10 +12,10 @@ struct WorldTimeView: View {
     @ObservedObject var model: WorldTime
     @State private var editMode = EditMode.inactive
     @State var currentDate = Date()
-
     @State var isAdding = false
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
+    
     var body: some View {
         NavigationView {
             List {
@@ -30,11 +30,14 @@ struct WorldTimeView: View {
             .navigationBarItems(leading: EditButton(), trailing: Button(action: { }, label: {
                 Image(systemName: "plus").onTapGesture {
                     isAdding = true
-                }.sheet(isPresented: $isAdding) {
-                    AddCityView()
                 }
             }))
             .environment(\.editMode, $editMode)
+        }
+        
+        // https://stackoverflow.com/a/57632426
+        Text("").hidden().sheet(isPresented: $isAdding) {
+            AddCityView(allCities: $model.allCities)
         }
     }
 }
@@ -58,18 +61,22 @@ struct TimeView: View {
 struct AddCityView: View {
     @State var text: String = ""
     @State var selectedItem: Int = 0
-    var cities = ["Red", "Green", "Blue", "Tartan"]
+    @State private var searchText: String = ""
+    @Binding var allCities: [City]
     
     var body: some View {
         VStack {
-            TextField("City Name", text: $text)
-            Text(text)
-            Picker(selection:
-                $selectedItem, label: Text("dd"), content: {
-                    ForEach(0 ..< cities.count) {
-                        Text(cities[$0])
-                    }
-            })
+            SearchBar(text: $searchText, placeholder: "검색")
+            List {
+                ForEach(
+                    allCities.filter {
+                        self.searchText.isEmpty
+                            ? true
+                            : $0.name.lowercased().contains(self.searchText.lowercased())
+                    },
+                    id: \.self
+                ) { Text($0.name) }
+            }
         }
     }
 }
