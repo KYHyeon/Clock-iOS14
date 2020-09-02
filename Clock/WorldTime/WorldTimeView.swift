@@ -26,7 +26,7 @@ struct WorldTimeView: View {
                 .onDelete(perform: model.delete(_:))
                 .onMove(perform: model.move(source:destination:))
             }
-            .navigationBarTitle(Text("세계 시계").font(.largeTitle))
+            .navigationBarTitle("세계 시계")
             .navigationBarItems(leading: EditButton(), trailing: Button(action: { }, label: {
                 Image(systemName: "plus").onTapGesture {
                     self.isAdding = true
