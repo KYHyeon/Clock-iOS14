@@ -8,9 +8,7 @@
 
 import Foundation
 
-struct City: Identifiable, Hashable {
-    var id: String { name }
-    
+struct City {
     var diffHour: Int
     var diffString: String {
         "오늘, \(diffHour)시간"
@@ -26,5 +24,17 @@ struct City: Identifiable, Hashable {
     
     func date(currentDate: Date) -> String {
         dateFormatter.string(from: Date(timeInterval: TimeInterval(60 * 60 * diffHour), since: currentDate))
+    }
+}
+
+extension City: Identifiable {
+    var id: String { name }
+}
+
+extension City: Hashable { }
+
+extension City: Comparable {
+    static func < (lhs: City, rhs: City) -> Bool {
+        lhs.name < rhs.name
     }
 }
