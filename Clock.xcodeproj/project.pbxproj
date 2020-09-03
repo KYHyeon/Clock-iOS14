@@ -10,6 +10,7 @@
 		F41DE6CC24FBB9F000FCCD02 /* WorldTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41DE6CB24FBB9F000FCCD02 /* WorldTimeView.swift */; };
 		F41DE6CE24FBBA7B00FCCD02 /* WorldTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41DE6CD24FBBA7B00FCCD02 /* WorldTime.swift */; };
 		F41E09D824FFB5A20043706C /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41E09D724FFB5A20043706C /* SearchBar.swift */; };
+		F426741B2501166C00D4DF19 /* AddCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F426741A2501166C00D4DF19 /* AddCityView.swift */; };
 		F4858F1A24FBC626003D4ED7 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4858F1924FBC626003D4ED7 /* City.swift */; };
 		F4899A3324FBAC19003C048C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4899A3224FBAC19003C048C /* AppDelegate.swift */; };
 		F4899A3524FBAC19003C048C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4899A3424FBAC19003C048C /* SceneDelegate.swift */; };
@@ -43,6 +44,7 @@
 		F41DE6CB24FBB9F000FCCD02 /* WorldTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTimeView.swift; sourceTree = "<group>"; };
 		F41DE6CD24FBBA7B00FCCD02 /* WorldTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTime.swift; sourceTree = "<group>"; };
 		F41E09D724FFB5A20043706C /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		F426741A2501166C00D4DF19 /* AddCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityView.swift; sourceTree = "<group>"; };
 		F4858F1924FBC626003D4ED7 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		F4899A2F24FBAC19003C048C /* Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4899A3224FBAC19003C048C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				F41DE6CB24FBB9F000FCCD02 /* WorldTimeView.swift */,
 				F41DE6CD24FBBA7B00FCCD02 /* WorldTime.swift */,
 				F4858F1924FBC626003D4ED7 /* City.swift */,
+				F426741A2501166C00D4DF19 /* AddCityView.swift */,
 			);
 			path = WorldTime;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				F41DE6CC24FBB9F000FCCD02 /* WorldTimeView.swift in Sources */,
 				F41E09D824FFB5A20043706C /* SearchBar.swift in Sources */,
 				F4899A3524FBAC19003C048C /* SceneDelegate.swift in Sources */,
+				F426741B2501166C00D4DF19 /* AddCityView.swift in Sources */,
 				F4858F1A24FBC626003D4ED7 /* City.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

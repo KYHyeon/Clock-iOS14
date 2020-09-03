@@ -37,7 +37,7 @@ struct WorldTimeView: View {
         
         // https://stackoverflow.com/a/57632426
         Text("").hidden().sheet(isPresented: $isAdding) {
-            AddCityView(allCities: $model.allCities)
+            AddCityView(allCities: $model.allCities, isPresented: $isAdding)
         }
     }
 }
@@ -55,29 +55,6 @@ struct TimeView: View {
             Spacer()
             Text("\(city.date(currentDate: currentDate))").font(.title)
         }.padding()
-    }
-}
-
-struct AddCityView: View {
-    @State var text: String = ""
-    @State var selectedItem: Int = 0
-    @State private var searchText: String = ""
-    @Binding var allCities: [City]
-    
-    var body: some View {
-        VStack {
-            SearchBar(text: $searchText, placeholder: "검색")
-            List {
-                ForEach(
-                    allCities.filter {
-                        self.searchText.isEmpty
-                            ? true
-                            : $0.name.lowercased().contains(self.searchText.lowercased())
-                    },
-                    id: \.self
-                ) { Text($0.name) }
-            }
-        }
     }
 }
 
