@@ -16,11 +16,6 @@ struct ContentView: View {
                     Image(systemName: "list.dash")
                     Text("Menu")
             }
-            WorldTimeView(model: WorldTime())
-                .tabItem {
-                    Image(systemName: "list.dash")
-                    Text("Menu")
-            }
         }
     }
 }

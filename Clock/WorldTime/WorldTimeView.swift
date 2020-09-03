@@ -17,27 +17,29 @@ struct WorldTimeView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(model.cities) { city in
-                    TimeView(city: city, currentDate: $currentDate, editMode: $editMode)
-                        .onReceive(timer) { currentDate = $0 }
+        VStack {
+            NavigationView {
+                List {
+                    ForEach(model.cities) { city in
+                        TimeView(city: city, currentDate: $currentDate, editMode: $editMode)
+                            .onReceive(timer) { currentDate = $0 }
+                    }
+                    .onDelete(perform: model.delete(_:))
+                    .onMove(perform: model.move(source:destination:))
                 }
-                .onDelete(perform: model.delete(_:))
-                .onMove(perform: model.move(source:destination:))
+                .navigationBarTitle("세계 시계")
+                .navigationBarItems(leading: EditButton(), trailing: Button(action: { }, label: {
+                    Image(systemName: "plus").onTapGesture {
+                        isAdding = true
+                    }
+                }))
+                .environment(\.editMode, $editMode)
             }
-            .navigationBarTitle("세계 시계")
-            .navigationBarItems(leading: EditButton(), trailing: Button(action: { }, label: {
-                Image(systemName: "plus").onTapGesture {
-                    isAdding = true
-                }
-            }))
-            .environment(\.editMode, $editMode)
-        }
-        
-        // https://stackoverflow.com/a/57632426
-        Text("").hidden().sheet(isPresented: $isAdding) {
-            AddCityView(allCities: $model.allCities, isPresented: $isAdding)
+            
+            // https://stackoverflow.com/a/57632426
+            EmptyView().sheet(isPresented: $isAdding) {
+                AddCityView(allCities: $model.allCities, isPresented: $isAdding)
+            }.fixedSize()
         }
     }
 }
