@@ -20,7 +20,7 @@ struct WorldTimeView: View {
         NavigationView {
             List {
                 ForEach(model.cities) { city in
-                    TimeView(city: city, currentDate: $currentDate)
+                    TimeView(city: city, currentDate: $currentDate, editMode: $editMode)
                         .onReceive(timer) { currentDate = $0 }
                 }
                 .onDelete(perform: model.delete(_:))
@@ -45,6 +45,7 @@ struct WorldTimeView: View {
 struct TimeView: View {
     var city: City
     @Binding var currentDate: Date
+    @Binding var editMode: EditMode
     
     var body: some View {
         HStack {
@@ -53,7 +54,9 @@ struct TimeView: View {
                 Text(city.name).font(.title)
             }
             Spacer()
-            Text("\(city.date(currentDate: currentDate))").font(.title)
+            if !editMode.isEditing {
+                Text("\(city.date(currentDate: currentDate))").font(.title)
+            }
         }.padding()
     }
 }
