@@ -24,12 +24,13 @@ struct AddCityView: View {
                 })
             }.padding()
             List {
+                // 오른쪽 인덱스 UILocalized​Indexed​Collation
                 ForEach(
                     allCities.filter {
                         self.searchText.isEmpty
                             ? true
                             : $0.name.lowercased().contains(self.searchText.lowercased())
-                    },
+                    }.sorted(),
                     id: \.self
                 ) { Text($0.name) }
             }
