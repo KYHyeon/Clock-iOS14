@@ -23,20 +23,17 @@ struct AddCityView: View {
                     Text("취소")
                 })
             }.padding()
-            List {
-                // 오른쪽 인덱스 UILocalized​Indexed​Collation
-                ForEach(
-                    model.allCities.filter {
-                        self.searchText.isEmpty
-                            ? true
-                            : $0.name.lowercased().contains(self.searchText.lowercased())
-                    }.sorted(),
-                    id: \.self
-                ) { city in
-                    Text(city.name).onTapGesture {
-                        model.append(city: city)
-                        isPresented = false
-                    }
+            List(model.allCities.filter {
+                    self.searchText.isEmpty
+                        ? true
+                        : $0.name.lowercased().contains(self.searchText.lowercased())
+                }.sorted(),
+                id: \.self
+            ) { city in
+            // 오른쪽 인덱스 UILocalized​Indexed​Collation
+                Text(city.name).onTapGesture {
+                    model.append(city: city)
+                    isPresented = false
                 }
             }
         }
