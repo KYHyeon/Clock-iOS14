@@ -13,9 +13,14 @@ struct ContentView: View {
         TabView {
             WorldTimeView(model: WorldTime())
                 .tabItem {
-                    Image(systemName: "list.dash")
-                    Text("Menu")
+                    Image(systemName: "globe")
+                    Text("세계 시계")
             }
+            AlarmView(model: Alarm())
+                .tabItem {
+                    Image(systemName: "alarm")
+                    Text("알람")
+                }
         }
     }
 }
