@@ -31,7 +31,12 @@ struct AddCityView: View {
                 id: \.self
             ) { city in
             // 오른쪽 인덱스 UILocalized​Indexed​Collation
-                Text(city.name).onTapGesture {
+                HStack {
+                    Text(city.name)
+                    Spacer()
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
                     model.append(city: city)
                     isPresented = false
                 }
