@@ -12,7 +12,7 @@ struct AddCityView: View {
     @State var text: String = ""
     @State var selectedItem: Int = 0
     @State private var searchText: String = ""
-    @Binding var allCities: [City]
+    var model: WorldTime
     @Binding var isPresented: Bool
     
     var body: some View {
@@ -26,13 +26,18 @@ struct AddCityView: View {
             List {
                 // 오른쪽 인덱스 UILocalized​Indexed​Collation
                 ForEach(
-                    allCities.filter {
+                    model.allCities.filter {
                         self.searchText.isEmpty
                             ? true
                             : $0.name.lowercased().contains(self.searchText.lowercased())
                     }.sorted(),
                     id: \.self
-                ) { Text($0.name) }
+                ) { city in
+                    Text(city.name).onTapGesture {
+                        model.append(city: city)
+                        isPresented = false
+                    }
+                }
             }
         }
     }
@@ -40,6 +45,6 @@ struct AddCityView: View {
 
 struct AddCityView_Previews: PreviewProvider {
     static var previews: some View {
-        AddCityView(allCities: Binding.constant(WorldTime().allCities), isPresented: Binding.constant(true))
+        AddCityView(model: WorldTime(), isPresented: Binding.constant(true))
     }
 }

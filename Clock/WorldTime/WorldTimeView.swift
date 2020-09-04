@@ -38,7 +38,7 @@ struct WorldTimeView: View {
             
             // https://stackoverflow.com/a/57632426
             EmptyView().sheet(isPresented: $isAdding) {
-                AddCityView(allCities: $model.allCities, isPresented: $isAdding)
+                AddCityView(model: model, isPresented: $isAdding)
             }.fixedSize()
         }
     }
