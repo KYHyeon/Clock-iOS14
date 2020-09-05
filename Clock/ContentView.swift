@@ -17,7 +17,7 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "list.dash")
                     Text("Menu")
-            }
+                }
         }
     }
 }

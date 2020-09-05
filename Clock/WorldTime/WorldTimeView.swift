@@ -16,7 +16,7 @@ struct WorldTimeView: View {
     @State var isAdding = false
     @FetchRequest(entity: City.entity(), sortDescriptors: []) var cities: FetchedResults<City>
     @Environment(\.managedObjectContext) var managedObjectContext
-
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -32,7 +32,7 @@ struct WorldTimeView: View {
                             cities[index]
                         })
                     }
-//                    .onMove(perform: model.move(source:destination:))
+                    //                    .onMove(perform: model.move(source:destination:))
                 }
                 .navigationBarTitle("세계 시계")
                 .navigationBarItems(leading: EditButton(), trailing: Button(action: {

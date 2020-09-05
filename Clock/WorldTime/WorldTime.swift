@@ -30,14 +30,14 @@ class WorldTime: ObservableObject {
     // MARK: - Intent
     func delete(_ cities: [City]) {
         cities.forEach { city in
-           self.managedObjectContext.delete(city)
-         }
+            self.managedObjectContext.delete(city)
+        }
     }
-
-//    func move(source: IndexSet, destination: Int) {
-//        cities.move(fromOffsets: source, toOffset: destination)
-//    }
-//
+    
+    //    func move(source: IndexSet, destination: Int) {
+    //        cities.move(fromOffsets: source, toOffset: destination)
+    //    }
+    //
     func append(name: String, diffHour: Int) {
         let city = City(context: managedObjectContext)
         city.name = name
@@ -46,10 +46,10 @@ class WorldTime: ObservableObject {
     }
     
     func saveContext() {
-      do {
-        try managedObjectContext.save()
-      } catch {
-        print("Error saving managed object context: \(error)")
-      }
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print("Error saving managed object context: \(error)")
+        }
     }
 }

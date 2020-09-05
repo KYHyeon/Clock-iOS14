@@ -13,7 +13,7 @@ extension City {
     var diffString: String {
         "오늘, \(timeInterval / 3600)시간"
     }
-     
+    
     var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm:ss"
