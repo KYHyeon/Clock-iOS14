@@ -14,7 +14,7 @@ class WorldTime: ObservableObject {
     var managedObjectContext: NSManagedObjectContext
     
     init(_ managedObjectContext: NSManagedObjectContext) {
-        self .managedObjectContext = managedObjectContext
+        self.managedObjectContext = managedObjectContext
     }
     
     var allCities: [(timeInterval: Int, name: String)] = TimeZone.knownTimeZoneIdentifiers.compactMap { identifier in
