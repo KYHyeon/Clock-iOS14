@@ -14,7 +14,10 @@ struct WorldTimeView: View {
     @State private var editMode = EditMode.inactive
     @State var currentDate = Date()
     @State var isAdding = false
-    @FetchRequest(entity: City.entity(), sortDescriptors: []) var cities: FetchedResults<City>
+    @FetchRequest(
+        entity: City.entity(),
+        sortDescriptors: [NSSortDescriptor(key: "order", ascending: true)]
+    ) var cities: FetchedResults<City>
     @Environment(\.managedObjectContext) var managedObjectContext
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -28,11 +31,21 @@ struct WorldTimeView: View {
                             .onReceive(timer) { currentDate = $0 }
                     }
                     .onDelete {
+                        guard !$0.isEmpty else {
+                            return
+                        }
+                        
                         model.delete($0.map { index in
                             cities[index]
                         })
                     }
-                    //                    .onMove(perform: model.move(source:destination:))
+                    .onMove { source, destination in
+                        guard !source.isEmpty else {
+                            return
+                        }
+                        
+                        model.move(at: Array(cities), source: source, destination: destination)
+                    }
                 }
                 .navigationBarTitle("세계 시계")
                 .navigationBarItems(leading: EditButton(), trailing: Button(action: {
@@ -63,6 +76,7 @@ struct TimeView: View {
             VStack {
                 Text(city.diffString).font(.subheadline)
                 Text(city.name ?? "").font(.title)
+                Text("\(city.order)")
             }
             Spacer()
             if !editMode.isEditing {

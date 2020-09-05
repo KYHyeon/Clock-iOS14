@@ -27,10 +27,26 @@ extension City {
     static func withName(_ name: String, context: NSManagedObjectContext) -> City? {
         let request = NSFetchRequest<City>(entityName: "City")
         request.predicate = NSPredicate(format: "name = %@", name)
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        request.sortDescriptors = []
         let cities = (try? context.fetch(request)) ?? []
         return cities.first
     }
+    
+    static func nextOrder(context: NSManagedObjectContext) -> Int? {
+        // City를 추가할 때마다 모든 원소를 반환해야 하므로 비효율적인 코드
+        let request = NSFetchRequest<City>(entityName: "City")
+        request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: false)]
+        do {
+            guard let last = try context.fetch(request).first else {
+                return 1
+            }
+            return Int(last.order) + 1
+        } catch let error {
+            debugPrint(error)
+            return nil
+        }
+    }
+    
 }
 
 extension City: Comparable {
