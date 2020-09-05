@@ -27,7 +27,11 @@ struct WorldTimeView: View {
                         TimeView(city: city, currentDate: $currentDate, editMode: $editMode)
                             .onReceive(timer) { currentDate = $0 }
                     }
-//                    .onDelete(perform: model.delete(_:))
+                    .onDelete {
+                        model.delete($0.map { index in
+                            cities[index]
+                        })
+                    }
 //                    .onMove(perform: model.move(source:destination:))
                 }
                 .navigationBarTitle("세계 시계")
@@ -42,12 +46,13 @@ struct WorldTimeView: View {
             
             // https://stackoverflow.com/a/57632426
             EmptyView().sheet(isPresented: $isAdding) {
-//                AddCityView(model: model, isPresented: $isAdding)
+                AddCityView(model: model, isPresented: $isAdding)
             }.fixedSize()
         }
     }
+    
 }
-//
+
 struct TimeView: View {
     var city: City
     @Binding var currentDate: Date
@@ -57,7 +62,7 @@ struct TimeView: View {
         HStack {
             VStack {
                 Text(city.diffString).font(.subheadline)
-                Text(city.name!).font(.title)
+                Text(city.name ?? "").font(.title)
             }
             Spacer()
             if !editMode.isEditing {
@@ -68,7 +73,8 @@ struct TimeView: View {
 }
 
 struct WorldTimeView_Previews: PreviewProvider {
+    @Environment(\.managedObjectContext) static var managedObjectContext
     static var previews: some View {
-        WorldTimeView(model: WorldTime())
+        WorldTimeView(model: WorldTime(managedObjectContext))
     }
 }
