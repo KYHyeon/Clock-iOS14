@@ -19,7 +19,7 @@ class WorldTime: ObservableObject {
     
     var allCities: [(timeInterval: Int, name: String)] = TimeZone.knownTimeZoneIdentifiers.compactMap { identifier in
         guard let timezone = TimeZone(identifier: identifier) else { return nil }
-        let timeInterval = (TimeZone.current.secondsFromGMT() - timezone.secondsFromGMT())
+        let timeInterval = timezone.secondsFromGMT() - TimeZone.current.secondsFromGMT()
         var name: String = timezone.localizedName(
             for: NSTimeZone.NameStyle.shortGeneric,
             locale: Locale(identifier: "ko_KR")
