@@ -7,28 +7,32 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct WorldTimeView: View {
     @ObservedObject var model: WorldTime
     @State private var editMode = EditMode.inactive
     @State var currentDate = Date()
     @State var isAdding = false
-    
+    @FetchRequest(entity: City.entity(), sortDescriptors: []) var cities: FetchedResults<City>
+    @Environment(\.managedObjectContext) var managedObjectContext
+
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack {
             NavigationView {
                 List {
-                    ForEach(model.cities) { city in
+                    ForEach(cities) { city in
                         TimeView(city: city, currentDate: $currentDate, editMode: $editMode)
                             .onReceive(timer) { currentDate = $0 }
                     }
-                    .onDelete(perform: model.delete(_:))
-                    .onMove(perform: model.move(source:destination:))
+//                    .onDelete(perform: model.delete(_:))
+//                    .onMove(perform: model.move(source:destination:))
                 }
                 .navigationBarTitle("세계 시계")
-                .navigationBarItems(leading: EditButton(), trailing: Button(action: { }, label: {
+                .navigationBarItems(leading: EditButton(), trailing: Button(action: {
+                }, label: {
                     Image(systemName: "plus").onTapGesture {
                         isAdding = true
                     }
@@ -38,12 +42,12 @@ struct WorldTimeView: View {
             
             // https://stackoverflow.com/a/57632426
             EmptyView().sheet(isPresented: $isAdding) {
-                AddCityView(model: model, isPresented: $isAdding)
+//                AddCityView(model: model, isPresented: $isAdding)
             }.fixedSize()
         }
     }
 }
-
+//
 struct TimeView: View {
     var city: City
     @Binding var currentDate: Date
@@ -53,7 +57,7 @@ struct TimeView: View {
         HStack {
             VStack {
                 Text(city.diffString).font(.subheadline)
-                Text(city.name).font(.title)
+                Text(city.name!).font(.title)
             }
             Spacer()
             if !editMode.isEditing {

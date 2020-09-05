@@ -8,14 +8,11 @@
 
 import Foundation
 
-struct City {
-    var diffHour: Int
+extension City {
     var diffString: String {
         "오늘, \(diffHour)시간"
     }
-    
-    var name: String
-    
+     
     var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm:ss"
@@ -27,14 +24,8 @@ struct City {
     }
 }
 
-extension City: Identifiable {
-    var id: String { name }
-}
-
-extension City: Hashable { }
-
 extension City: Comparable {
-    static func < (lhs: City, rhs: City) -> Bool {
-        lhs.name < rhs.name
+    public static func < (lhs: City, rhs: City) -> Bool {
+        lhs.name! < rhs.name!
     }
 }
