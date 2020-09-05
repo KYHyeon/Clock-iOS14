@@ -17,14 +17,14 @@ class WorldTime: ObservableObject {
         self .managedObjectContext = managedObjectContext
     }
     
-    var allCities: [(diffHour: Int, name: String)] = TimeZone.knownTimeZoneIdentifiers.compactMap { identifier in
+    var allCities: [(timeInterval: Int, name: String)] = TimeZone.knownTimeZoneIdentifiers.compactMap { identifier in
         guard let timezone = TimeZone(identifier: identifier) else { return nil }
-        let diffHour = (TimeZone.current.secondsFromGMT() - timezone.secondsFromGMT()) / 3600
+        let timeInterval = (TimeZone.current.secondsFromGMT() - timezone.secondsFromGMT())
         var name: String = timezone.localizedName(
             for: NSTimeZone.NameStyle.shortGeneric,
             locale: Locale(identifier: "ko_KR")
         ) ?? ""
-        return (diffHour: diffHour, name: name)
+        return (timeInterval: timeInterval, name: name)
     }
     
     // MARK: - Intent
@@ -41,7 +41,7 @@ class WorldTime: ObservableObject {
     func append(name: String, diffHour: Int) {
         let city = City(context: managedObjectContext)
         city.name = name
-        city.diffHour = Int32(diffHour)
+        city.timeInterval = Int32(diffHour)
         saveContext()
     }
     

@@ -11,7 +11,7 @@ import CoreData
 
 extension City {
     var diffString: String {
-        "오늘, \(diffHour)시간"
+        "오늘, \(timeInterval / 3600)시간"
     }
      
     var dateFormatter: DateFormatter {
@@ -21,7 +21,7 @@ extension City {
     }
     
     func date(currentDate: Date) -> String {
-        dateFormatter.string(from: Date(timeInterval: TimeInterval(60 * 60 * diffHour), since: currentDate))
+        dateFormatter.string(from: Date(timeInterval: TimeInterval(timeInterval), since: currentDate))
     }
     
     static func withName(_ name: String, context: NSManagedObjectContext) -> City? {

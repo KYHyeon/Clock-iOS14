@@ -38,7 +38,7 @@ struct AddCityView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    model.append(name: city.name, diffHour: city.diffHour)
+                    model.append(name: city.name, diffHour: city.timeInterval)
                     isPresented = false
                 }
             }
