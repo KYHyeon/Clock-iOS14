@@ -7,14 +7,12 @@
 //
 
 import Foundation
+import CoreData
 
-struct City {
-    var diffHour: Int
+extension City {
     var diffString: String {
-        "오늘, \(diffHour)시간"
+        "오늘, \(timeInterval / 3600)시간"
     }
-    
-    var name: String
     
     var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
@@ -23,18 +21,20 @@ struct City {
     }
     
     func date(currentDate: Date) -> String {
-        dateFormatter.string(from: Date(timeInterval: TimeInterval(60 * 60 * diffHour), since: currentDate))
+        dateFormatter.string(from: Date(timeInterval: TimeInterval(timeInterval), since: currentDate))
+    }
+    
+    static func withName(_ name: String, context: NSManagedObjectContext) -> City? {
+        let request = NSFetchRequest<City>(entityName: "City")
+        request.predicate = NSPredicate(format: "name = %@", name)
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        let cities = (try? context.fetch(request)) ?? []
+        return cities.first
     }
 }
 
-extension City: Identifiable {
-    var id: String { name }
-}
-
-extension City: Hashable { }
-
 extension City: Comparable {
-    static func < (lhs: City, rhs: City) -> Bool {
-        lhs.name < rhs.name
+    public static func < (lhs: City, rhs: City) -> Bool {
+        lhs.name! < rhs.name!
     }
 }

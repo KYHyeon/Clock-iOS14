@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
     var body: some View {
         TabView {
-            WorldTimeView(model: WorldTime())
+            WorldTimeView(model: WorldTime(managedObjectContext))
                 .tabItem {
                     Image(systemName: "globe")
                     Text("세계 시계")

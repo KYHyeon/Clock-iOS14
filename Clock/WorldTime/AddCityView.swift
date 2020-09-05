@@ -14,6 +14,7 @@ struct AddCityView: View {
     @State private var searchText: String = ""
     var model: WorldTime
     @Binding var isPresented: Bool
+    @Environment(\.managedObjectContext) var managedObjectContext
     
     var body: some View {
         VStack {
@@ -24,29 +25,39 @@ struct AddCityView: View {
                 })
             }.padding()
             List(model.allCities.filter {
-                    self.searchText.isEmpty
-                        ? true
-                        : $0.name.lowercased().contains(self.searchText.lowercased())
-                }.sorted(),
-                id: \.self
+                self.searchText.isEmpty
+                    ? true
+                    : $0.name.lowercased().contains(self.searchText.lowercased())
+            },//.sorted(),
+            id: \.self.1
             ) { city in
-            // 오른쪽 인덱스 UILocalized​Indexed​Collation
+                // 오른쪽 인덱스 UILocalized​Indexed​Collation
                 HStack {
                     Text(city.name)
                     Spacer()
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    model.append(city: city)
+                    model.append(name: city.name, diffHour: city.timeInterval)
                     isPresented = false
                 }
             }
         }
     }
+    
+    func saveContext() {
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print("Error saving managed object context: \(error)")
+        }
+    }
 }
 
 struct AddCityView_Previews: PreviewProvider {
+    @Environment(\.managedObjectContext) static var managedObjectContext
+    
     static var previews: some View {
-        AddCityView(model: WorldTime(), isPresented: Binding.constant(true))
+        AddCityView(model: WorldTime(managedObjectContext), isPresented: Binding.constant(true))
     }
 }
