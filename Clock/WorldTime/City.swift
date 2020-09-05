@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 extension City {
     var diffString: String {
@@ -21,6 +22,14 @@ extension City {
     
     func date(currentDate: Date) -> String {
         dateFormatter.string(from: Date(timeInterval: TimeInterval(60 * 60 * diffHour), since: currentDate))
+    }
+    
+    static func withName(_ name: String, context: NSManagedObjectContext) -> City? {
+        let request = NSFetchRequest<City>(entityName: "City")
+        request.predicate = NSPredicate(format: "name = %@", name)
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        let cities = (try? context.fetch(request)) ?? []
+        return cities.first
     }
 }
 
