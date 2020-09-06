@@ -25,38 +25,46 @@ struct WorldTimeView: View {
     var body: some View {
         VStack {
             NavigationView {
-                List {
-                    ForEach(cities) { city in
-                        TimeView(city: city, currentDate: $currentDate, editMode: $editMode)
-                            .onReceive(timer) { currentDate = $0 }
-                    }
-                    .onDelete {
-                        guard !$0.isEmpty else {
-                            return
+                ZStack {
+                    List {
+                        ForEach(cities) { city in
+                            TimeView(city: city, currentDate: $currentDate, editMode: $editMode)
+                                .onReceive(timer) { currentDate = $0 }
                         }
-                        
-                        model.delete($0.map { index in
-                            cities[index]
-                        })
-                    }
-                    .onMove { source, destination in
-                        guard !source.isEmpty else {
-                            return
+                        .onDelete {
+                            guard !$0.isEmpty else {
+                                return
+                            }
+                            model.delete($0.map { index in
+                                cities[index]
+                            })
                         }
-                        
-                        model.move(at: Array(cities), source: source, destination: destination)
+                        .onMove { source, destination in
+                            guard !source.isEmpty else {
+                                return
+                            }
+                            model.move(at: Array(cities), source: source, destination: destination)
+                        }
+                    }
+                    if cities.isEmpty {
+                        Text("세계 시계 없음")
+                            .font(.title)
+                            .foregroundColor(.gray)
                     }
                 }
                 .navigationBarTitle("세계 시계")
-                .navigationBarItems(leading: EditButton(), trailing: Button(action: {
-                }, label: {
-                    Image(systemName: "plus").onTapGesture {
+                .navigationBarItems(
+                    leading: Group {
+                        if !cities.isEmpty {
+                            EditButton()
+                        }
+                    },
+                    trailing: Image(systemName: "plus").onTapGesture {
                         isAdding = true
                     }
-                }))
+                )
                 .environment(\.editMode, $editMode)
             }
-            
             // https://stackoverflow.com/a/57632426
             EmptyView().sheet(isPresented: $isAdding) {
                 AddCityView(model: model, isPresented: $isAdding)
@@ -76,7 +84,6 @@ struct TimeView: View {
             VStack {
                 Text(city.diffString).font(.subheadline)
                 Text(city.name ?? "").font(.title)
-                Text("\(city.order)")
             }
             Spacer()
             if !editMode.isEditing {
