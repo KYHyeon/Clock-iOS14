@@ -32,16 +32,32 @@ class WorldTime: ObservableObject {
         cities.forEach { city in
             self.managedObjectContext.delete(city)
         }
+        saveContext()
     }
     
-    //    func move(source: IndexSet, destination: Int) {
-    //        cities.move(fromOffsets: source, toOffset: destination)
-    //    }
-    //
+    func move(at cities: [City], source: IndexSet, destination: Int) {
+        // https://stackoverflow.com/questions/59742218/swiftui-reorder-coredata-objects-in-list
+        var cities = cities
+        cities.move(fromOffsets: source, toOffset: destination )
+        stride(
+            from: cities.count - 1,
+            through: 0,
+            by: -1
+        )
+        .forEach { reverseIndex in
+            cities[reverseIndex].order = Int32(reverseIndex)
+        }
+        saveContext()
+    }
+    
     func append(name: String, diffHour: Int) {
+        guard let order = City.nextOrder(context: managedObjectContext) else {
+            return
+        }
         let city = City(context: managedObjectContext)
         city.name = name
         city.timeInterval = Int32(diffHour)
+        city.order = Int32(order)
         saveContext()
     }
     

@@ -11,39 +11,42 @@ import CoreData
 
 struct WorldTimeView: View {
     @ObservedObject var model: WorldTime
+    @FetchRequest(
+        entity: City.entity(),
+        sortDescriptors: [NSSortDescriptor(key: "order", ascending: true)]
+    ) var cities: FetchedResults<City>
     @State private var editMode = EditMode.inactive
-    @State var currentDate = Date()
     @State var isAdding = false
-    @FetchRequest(entity: City.entity(), sortDescriptors: []) var cities: FetchedResults<City>
     @Environment(\.managedObjectContext) var managedObjectContext
-    
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack {
             NavigationView {
-                List {
-                    ForEach(cities) { city in
-                        TimeView(city: city, currentDate: $currentDate, editMode: $editMode)
-                            .onReceive(timer) { currentDate = $0 }
+                ZStack {
+                    WorldTimeViewList(
+                        model: model,
+                        cities: Binding.constant(cities),
+                        editMode: $editMode
+                    )
+                    if cities.isEmpty {
+                        Text("세계 시계 없음")
+                            .font(.title)
+                            .foregroundColor(.gray)
                     }
-                    .onDelete {
-                        model.delete($0.map { index in
-                            cities[index]
-                        })
-                    }
-                    //                    .onMove(perform: model.move(source:destination:))
                 }
                 .navigationBarTitle("세계 시계")
-                .navigationBarItems(leading: EditButton(), trailing: Button(action: {
-                }, label: {
-                    Image(systemName: "plus").onTapGesture {
+                .navigationBarItems(
+                    leading: Group {
+                        if !cities.isEmpty {
+                            EditButton()
+                        }
+                    },
+                    trailing: Image(systemName: "plus").onTapGesture {
                         isAdding = true
                     }
-                }))
+                )
                 .environment(\.editMode, $editMode)
             }
-            
             // https://stackoverflow.com/a/57632426
             EmptyView().sheet(isPresented: $isAdding) {
                 AddCityView(model: model, isPresented: $isAdding)
@@ -51,6 +54,37 @@ struct WorldTimeView: View {
         }
     }
     
+}
+
+struct WorldTimeViewList: View {
+    var model: WorldTime
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var currentDate = Date()
+    @Binding var cities: FetchedResults<City>
+    @Binding var editMode: EditMode
+    
+    var body: some View {
+        List {
+            ForEach(cities) { city in
+                TimeView(city: city, currentDate: $currentDate, editMode: $editMode)
+                    .onReceive(timer) { currentDate = $0 }
+            }
+            .onDelete {
+                guard !$0.isEmpty else {
+                    return
+                }
+                model.delete($0.map { index in
+                    cities[index]
+                })
+            }
+            .onMove { source, destination in
+                guard !source.isEmpty else {
+                    return
+                }
+                model.move(at: Array(cities), source: source, destination: destination)
+            }
+        }
+    }
 }
 
 struct TimeView: View {
