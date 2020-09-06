@@ -18,7 +18,7 @@ struct ContentView: View {
                     Image(systemName: "globe")
                     Text("세계 시계")
             }
-            AlarmView(model: Alarm())
+            AlarmView(model: AlarmModel())
                 .tabItem {
                     Image(systemName: "alarm")
                     Text("알람")

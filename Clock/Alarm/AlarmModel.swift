@@ -8,6 +8,6 @@
 
 import Foundation
 
-class Alarm: ObservableObject {
+class AlarmModel: ObservableObject {
     
 }
