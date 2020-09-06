@@ -100,7 +100,8 @@ struct TimeView: View {
             }
             Spacer()
             if !editMode.isEditing {
-                Text("\(city.date(currentDate: currentDate))").font(.title)
+                Text("\(city.amMark(currentDate: currentDate))")
+                Text("\(city.hourMinute(currentDate: currentDate))").font(.title)
             }
         }.padding()
     }

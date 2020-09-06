@@ -11,6 +11,7 @@
 		F41DE6CE24FBBA7B00FCCD02 /* WorldTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41DE6CD24FBBA7B00FCCD02 /* WorldTime.swift */; };
 		F41E09D824FFB5A20043706C /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41E09D724FFB5A20043706C /* SearchBar.swift */; };
 		F426741B2501166C00D4DF19 /* AddCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F426741A2501166C00D4DF19 /* AddCityView.swift */; };
+		F4595AFB2504F3AE00937CDC /* Date+dateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4595AFA2504F3AE00937CDC /* Date+dateFormat.swift */; };
 		F47814F525028632002B89CE /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47814F425028632002B89CE /* Alarm.swift */; };
 		F47814F725028643002B89CE /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47814F625028643002B89CE /* AlarmView.swift */; };
 		F4858F1A24FBC626003D4ED7 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4858F1924FBC626003D4ED7 /* City.swift */; };
@@ -47,6 +48,7 @@
 		F41DE6CD24FBBA7B00FCCD02 /* WorldTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTime.swift; sourceTree = "<group>"; };
 		F41E09D724FFB5A20043706C /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		F426741A2501166C00D4DF19 /* AddCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityView.swift; sourceTree = "<group>"; };
+		F4595AFA2504F3AE00937CDC /* Date+dateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+dateFormat.swift"; sourceTree = "<group>"; };
 		F47814F425028632002B89CE /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		F47814F625028643002B89CE /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
 		F4858F1924FBC626003D4ED7 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
@@ -102,6 +104,23 @@
 			path = UIViewRepresentable;
 			sourceTree = "<group>";
 		};
+		F4595AF82504F27900937CDC /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F4595AF92504F28500937CDC /* Extension */,
+				F41E09D624FFB58A0043706C /* UIViewRepresentable */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		F4595AF92504F28500937CDC /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F4595AFA2504F3AE00937CDC /* Date+dateFormat.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		F47814F325028626002B89CE /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,8 +155,8 @@
 		F4899A3124FBAC19003C048C /* Clock */ = {
 			isa = PBXGroup;
 			children = (
+				F4595AF82504F27900937CDC /* Common */,
 				F47814F325028626002B89CE /* Alarm */,
-				F41E09D624FFB58A0043706C /* UIViewRepresentable */,
 				F4899A6624FBB002003C048C /* WorldTime */,
 				F4899A3224FBAC19003C048C /* AppDelegate.swift */,
 				F4899A3424FBAC19003C048C /* SceneDelegate.swift */,
@@ -341,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4899A3324FBAC19003C048C /* AppDelegate.swift in Sources */,
+				F4595AFB2504F3AE00937CDC /* Date+dateFormat.swift in Sources */,
 				F4899A3824FBAC19003C048C /* Clock.xcdatamodeld in Sources */,
 				F4899A3A24FBAC19003C048C /* ContentView.swift in Sources */,
 				F41DE6CE24FBBA7B00FCCD02 /* WorldTime.swift in Sources */,
