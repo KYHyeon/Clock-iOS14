@@ -16,12 +16,20 @@ extension City {
     
     var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm:ss"
+        dateFormatter.dateFormat = "hh:mm"
         return dateFormatter
     }
     
-    func date(currentDate: Date) -> String {
-        dateFormatter.string(from: Date(timeInterval: TimeInterval(timeInterval), since: currentDate))
+    private func date(currentDate: Date) -> Date {
+        Date(timeInterval: TimeInterval(timeInterval), since: currentDate)
+    }
+    
+    func amMark(currentDate: Date) -> String {
+        date(currentDate: currentDate).amMark()
+    }
+    
+    func hourMinute(currentDate: Date) -> String {
+        date(currentDate: currentDate).hourMinute()
     }
     
     static func withName(_ name: String, context: NSManagedObjectContext) -> City? {
